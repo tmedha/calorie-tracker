@@ -4,6 +4,7 @@ import com.calorietracker.db.Database;
 import com.calorietracker.db.dao.FoodDao;
 import com.calorietracker.db.dao.LogEntryDao;
 import com.calorietracker.db.dao.ProfileDao;
+import com.calorietracker.db.dao.WeightEntryDao;
 import com.calorietracker.model.UserProfile;
 
 /** Shared application services and cached profile, handed to every controller. */
@@ -13,6 +14,7 @@ public class AppContext {
     private final FoodDao foodDao;
     private final LogEntryDao logEntryDao;
     private final ProfileDao profileDao;
+    private final WeightEntryDao weightDao;
     private UserProfile profile;
 
     public AppContext(Database database) {
@@ -20,6 +22,7 @@ public class AppContext {
         this.foodDao = new FoodDao(database);
         this.logEntryDao = new LogEntryDao(database);
         this.profileDao = new ProfileDao(database);
+        this.weightDao = new WeightEntryDao(database);
         this.profile = profileDao.load();
     }
 
@@ -29,6 +32,10 @@ public class AppContext {
 
     public LogEntryDao logEntries() {
         return logEntryDao;
+    }
+
+    public WeightEntryDao weights() {
+        return weightDao;
     }
 
     public ProfileDao profiles() {

@@ -1,25 +1,26 @@
 /* ============================================================
-   Calorie Tracker — minimalist design system
-   Palette: light gray canvas, white cards, single indigo accent,
-   three restrained macro colors.
+   Calorie Tracker — modern design system
+   Palette: blue-tinted canvas, white cards, vivid blue accent,
+   a deep-blue sidebar, and a blue hero summary.
    ============================================================ */
 
 .root {
     -fx-font-family: "Helvetica Neue", "Segoe UI", "SF Pro Text", sans-serif;
     -fx-font-size: 13px;
 
-    -accent: #4f6ef2;
-    -accent-soft: #eaeeff;
-    -accent-hover: #3f5ce0;
-    -canvas: #f4f5f8;
+    -accent: #2563eb;
+    -accent-soft: #dbe7ff;
+    -accent-hover: #1d4ed8;
+    -accent-deep: #1e3a8a;
+    -canvas: #eef3fc;
     -card: #ffffff;
-    -text: #1f2430;
-    -muted: #8a91a0;
-    -border: #e7e9ef;
+    -text: #0f1729;
+    -muted: #333c4d;
+    -border: #d4def0;
 
-    -protein: #4f6ef2;
-    -carbs: #f2a63f;
-    -fat: #ef6a8a;
+    -protein: #2563eb;
+    -carbs: #f59e0b;
+    -fat: #ec4899;
 
     -fx-background-color: -canvas;
 }
@@ -27,9 +28,7 @@
 /* ---------- Sidebar ---------- */
 
 .sidebar {
-    -fx-background-color: -card;
-    -fx-border-color: transparent -border transparent transparent;
-    -fx-border-width: 1;
+    -fx-background-color: linear-gradient(to bottom, #1e40af 0%, #2563eb 100%);
     -fx-min-width: 216;
     -fx-pref-width: 216;
     -fx-padding: 22 14 22 14;
@@ -38,17 +37,17 @@
 .brand {
     -fx-font-size: 18px;
     -fx-font-weight: bold;
-    -fx-text-fill: -text;
+    -fx-text-fill: white;
     -fx-padding: 4 0 24 10;
 }
 
 .brand-mark {
-    -fx-text-fill: -accent;
+    -fx-text-fill: white;
 }
 
 .nav-button {
     -fx-background-color: transparent;
-    -fx-text-fill: -muted;
+    -fx-text-fill: rgba(255, 255, 255, 0.9);
     -fx-font-size: 14px;
     -fx-alignment: center-left;
     -fx-graphic-text-gap: 12;
@@ -59,13 +58,13 @@
 }
 
 .nav-button:hover {
-    -fx-background-color: -canvas;
-    -fx-text-fill: -text;
+    -fx-background-color: rgba(255, 255, 255, 0.14);
+    -fx-text-fill: white;
 }
 
 .nav-button.active {
-    -fx-background-color: -accent-soft;
-    -fx-text-fill: -accent;
+    -fx-background-color: rgba(255, 255, 255, 0.22);
+    -fx-text-fill: white;
     -fx-font-weight: bold;
 }
 
@@ -104,6 +103,7 @@
     -fx-border-radius: 14;
     -fx-border-width: 1;
     -fx-padding: 20;
+    -fx-effect: dropshadow(gaussian, rgba(30, 58, 138, 0.07), 14, 0, 0, 4);
 }
 
 /* ---------- Buttons ---------- */
@@ -115,6 +115,7 @@
     -fx-background-radius: 9;
     -fx-padding: 9 18 9 18;
     -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(37, 99, 235, 0.35), 10, 0, 0, 3);
 }
 
 .primary-button:hover {
@@ -237,6 +238,51 @@
     -fx-background-color: -fat;
 }
 
+/* ---------- Hero summary card (blue) ---------- */
+
+.hero-card {
+    -fx-background-color: linear-gradient(to bottom right, #2563eb 0%, #1e40af 100%);
+    -fx-background-radius: 16;
+    -fx-padding: 24;
+    -fx-effect: dropshadow(gaussian, rgba(37, 99, 235, 0.28), 22, 0, 0, 8);
+}
+
+.hero-card .summary-calories {
+    -fx-text-fill: white;
+}
+
+.hero-card .summary-label {
+    -fx-text-fill: rgba(255, 255, 255, 0.92);
+}
+
+.hero-card .macro-name {
+    -fx-text-fill: white;
+}
+
+.hero-card .entry-meta {
+    -fx-text-fill: rgba(255, 255, 255, 0.96);
+}
+
+.hero-card .progress-bar > .track {
+    -fx-background-color: rgba(255, 255, 255, 0.22);
+}
+
+.hero-card .calorie-bar > .bar {
+    -fx-background-color: white;
+}
+
+.hero-card .protein-bar > .bar {
+    -fx-background-color: #bfdbfe;
+}
+
+.hero-card .carbs-bar > .bar {
+    -fx-background-color: #fcd34d;
+}
+
+.hero-card .fat-bar > .bar {
+    -fx-background-color: #f9a8d4;
+}
+
 /* ---------- Meal sections & entries ---------- */
 
 .meal-header {
@@ -328,4 +374,124 @@
 
 .scroll-pane, .scroll-pane .viewport {
     -fx-background-color: transparent;
+}
+
+/* ---------- Streak chip (on the blue hero) ---------- */
+
+.streak-chip {
+    -fx-background-color: rgba(255, 255, 255, 0.18);
+    -fx-background-radius: 20;
+    -fx-padding: 6 14 6 14;
+}
+
+.streak-chip .streak-count {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+}
+
+/* ---------- Calorie ring (on the blue hero) ---------- */
+
+.ring-value {
+    -fx-fill: white;
+    -fx-font-size: 34px;
+    -fx-font-weight: bold;
+}
+
+.ring-caption {
+    -fx-fill: rgba(255, 255, 255, 0.92);
+    -fx-font-size: 12px;
+}
+
+/* ---------- Charts (Trends view) ---------- */
+
+.chart {
+    -fx-padding: 4;
+    -fx-background-color: transparent;
+}
+
+.chart-plot-background {
+    -fx-background-color: transparent;
+}
+
+.chart-content {
+    -fx-padding: 6;
+}
+
+.chart-vertical-grid-lines {
+    -fx-stroke: transparent;
+}
+
+.chart-horizontal-grid-lines {
+    -fx-stroke: #eef2fb;
+}
+
+.chart-alternative-row-fill,
+.chart-alternative-column-fill {
+    -fx-background-color: transparent;
+}
+
+.axis {
+    -fx-tick-label-fill: -muted;
+    -fx-font-size: 11px;
+}
+
+.axis:bottom {
+    -fx-border-color: transparent;
+}
+
+.axis-minor-tick-mark {
+    -fx-stroke: transparent;
+}
+
+/* Bars: rounded data-end, thin, brand accent; over-target uses a warning hue. */
+.bar-chart .default-color0.chart-bar {
+    -fx-bar-fill: -accent;
+    -fx-background-radius: 5 5 0 0;
+}
+
+.bar-chart .chart-bar.over-target {
+    -fx-bar-fill: -carbs;
+}
+
+/* Weight line: 2px accent line, small dots, no area fill. */
+.line-chart .default-color0.chart-series-line {
+    -fx-stroke: -accent;
+    -fx-stroke-width: 2px;
+}
+
+.line-chart .default-color0.chart-line-symbol {
+    -fx-background-color: -accent, white;
+    -fx-background-insets: 0, 2;
+    -fx-background-radius: 6;
+    -fx-padding: 5;
+}
+
+/* ---------- Stat tile (Trends readouts) ---------- */
+
+.stat-tile {
+    -fx-background-color: -accent-soft;
+    -fx-background-radius: 12;
+    -fx-padding: 14 18 14 18;
+}
+
+.stat-tile .stat-tile-value {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -accent-deep;
+}
+
+.stat-tile .stat-tile-label {
+    -fx-font-size: 12px;
+    -fx-text-fill: -muted;
+}
+
+.stat-pos {
+    -fx-text-fill: #15803d;
+    -fx-font-weight: bold;
+}
+
+.stat-neg {
+    -fx-text-fill: #b91c1c;
+    -fx-font-weight: bold;
 }

@@ -5,10 +5,13 @@ import com.calorietracker.model.MealType;
 import com.calorietracker.model.UserProfile;
 import com.calorietracker.service.NutritionService;
 import com.calorietracker.service.NutritionService.MacroTotals;
+import com.calorietracker.service.StreakService;
 import com.calorietracker.ui.AppContext;
 import com.calorietracker.ui.FoodPickerDialog;
+import com.calorietracker.ui.controls.CalorieRing;
 import com.calorietracker.util.NumberFmt;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -31,9 +34,10 @@ public class DashboardController {
 
     @FXML private Label dateSubtitle;
     @FXML private javafx.scene.control.DatePicker datePicker;
-    @FXML private Label caloriesConsumed;
+    @FXML private CalorieRing calorieRing;
     @FXML private Label caloriesSub;
-    @FXML private ProgressBar calorieBar;
+    @FXML private Node streakChip;
+    @FXML private Label streakLabel;
     @FXML private Label proteinLabel;
     @FXML private ProgressBar proteinBar;
     @FXML private Label carbsLabel;
@@ -81,27 +85,36 @@ public class DashboardController {
         dateSubtitle.setText(prefix + date.format(DATE_FMT));
 
         updateSummary(NutritionService.total(entries));
+        updateStreak();
         buildMeals(entries);
     }
 
     private void updateSummary(MacroTotals totals) {
         UserProfile p = context.profile();
 
-        caloriesConsumed.setText(NumberFmt.whole(totals.calories()));
         int calTarget = p.getCalorieTarget();
+        calorieRing.setValues(totals.calories(), calTarget);
         if (calTarget > 0) {
             int remaining = calTarget - (int) Math.round(totals.calories());
-            String tail = remaining >= 0 ? remaining + " kcal left" : (-remaining) + " kcal over";
-            caloriesSub.setText("of " + calTarget + " · " + tail);
-            calorieBar.setProgress(totals.calorieProgress(calTarget));
+            caloriesSub.setText(remaining >= 0 ? remaining + " kcal left" : (-remaining) + " kcal over");
         } else {
             caloriesSub.setText("Set a calorie target in Profile");
-            calorieBar.setProgress(0);
         }
 
         updateMacro(proteinLabel, proteinBar, totals.proteinG(), p.getProteinTargetG());
         updateMacro(carbsLabel, carbsBar, totals.carbsG(), p.getCarbsTargetG());
         updateMacro(fatLabel, fatBar, totals.fatG(), p.getFatTargetG());
+    }
+
+    private void updateStreak() {
+        int streak = StreakService.currentStreak(
+                context.logEntries().distinctLoggedDates(), LocalDate.now());
+        boolean show = streak > 0;
+        streakChip.setVisible(show);
+        streakChip.setManaged(show);
+        if (show) {
+            streakLabel.setText("🔥 " + streak + "-day streak");
+        }
     }
 
     private void updateMacro(Label label, ProgressBar bar, double consumed, int target) {

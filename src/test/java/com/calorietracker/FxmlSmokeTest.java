@@ -6,6 +6,7 @@ import com.calorietracker.ui.controllers.DashboardController;
 import com.calorietracker.ui.controllers.FoodDbController;
 import com.calorietracker.ui.controllers.ProfileController;
 import com.calorietracker.ui.controllers.SettingsController;
+import com.calorietracker.ui.controllers.TrendsController;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import org.junit.jupiter.api.Assumptions;
@@ -47,6 +48,7 @@ class FxmlSmokeTest {
             AppContext ctx = new AppContext(database);
             loadOnFxThread("/fxml/dashboard.fxml", new DashboardController(ctx));
             loadOnFxThread("/fxml/food_db.fxml", new FoodDbController(ctx));
+            loadOnFxThread("/fxml/trends.fxml", new TrendsController(ctx));
             loadOnFxThread("/fxml/profile.fxml", new ProfileController(ctx));
             loadOnFxThread("/fxml/settings.fxml", new SettingsController(ctx));
         }

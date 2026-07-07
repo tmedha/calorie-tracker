@@ -4,6 +4,7 @@ import com.calorietracker.db.Database;
 import com.calorietracker.db.dao.FoodDao;
 import com.calorietracker.db.dao.LogEntryDao;
 import com.calorietracker.db.dao.ProfileDao;
+import com.calorietracker.db.dao.WeightEntryDao;
 import com.calorietracker.model.Food;
 import com.calorietracker.model.FoodLogEntry;
 import com.calorietracker.model.Goal;
@@ -11,6 +12,7 @@ import com.calorietracker.model.MealType;
 import com.calorietracker.model.Sex;
 import com.calorietracker.model.UnitSystem;
 import com.calorietracker.model.UserProfile;
+import com.calorietracker.model.WeightEntry;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,6 +21,7 @@ import org.junit.jupiter.api.io.TempDir;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -129,6 +132,38 @@ class PersistenceTest {
         assertEquals(UnitSystem.IMPERIAL, loaded.getUnitSystem());
         assertEquals(1800, loaded.getCalorieTarget());
         assertEquals(135, loaded.getProteinTargetG());
+    }
+
+    @Test
+    void weightUpsertKeepsOnePerDayAndTracksHistory() {
+        WeightEntryDao dao = new WeightEntryDao(database);
+        LocalDate d1 = LocalDate.of(2026, 7, 1);
+        LocalDate d2 = LocalDate.of(2026, 7, 6);
+
+        dao.upsert(d1, 80.0);
+        dao.upsert(d2, 79.0);
+        dao.upsert(d2, 78.5); // same day -> replaces, not a second row
+
+        List<WeightEntry> all = dao.findAll();
+        assertEquals(2, all.size());
+        assertEquals(d1, all.get(0).date(), "history should be ordered oldest-first");
+        assertEquals(78.5, dao.latest().weightKg(), 1e-9);
+        assertEquals(d2, dao.latest().date());
+    }
+
+    @Test
+    void distinctLoggedDatesReflectsLoggedDays() {
+        FoodDao foodDao = new FoodDao(database);
+        LogEntryDao logDao = new LogEntryDao(database);
+        int foodId = foodDao.findAll().get(0).getId();
+        LocalDate a = LocalDate.of(2026, 7, 6);
+        LocalDate b = LocalDate.of(2026, 7, 5);
+
+        logDao.insert(a, MealType.BREAKFAST, foodId, 1);
+        logDao.insert(a, MealType.LUNCH, foodId, 1); // same day, still one distinct date
+        logDao.insert(b, MealType.DINNER, foodId, 1);
+
+        assertEquals(Set.of(a, b), logDao.distinctLoggedDates());
     }
 
     private static void assertNull(Object o) {

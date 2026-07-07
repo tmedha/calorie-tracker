@@ -6,6 +6,7 @@ import com.calorietracker.ui.controllers.DashboardController;
 import com.calorietracker.ui.controllers.FoodDbController;
 import com.calorietracker.ui.controllers.ProfileController;
 import com.calorietracker.ui.controllers.SettingsController;
+import com.calorietracker.ui.controllers.TrendsController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -38,6 +39,7 @@ public class App extends Application {
     private enum Nav {
         DASHBOARD("Dashboard", "🏠", "/fxml/dashboard.fxml"),
         FOODS("Food Database", "🍎", "/fxml/food_db.fxml"),
+        TRENDS("Trends", "📈", "/fxml/trends.fxml"),
         PROFILE("Profile", "👤", "/fxml/profile.fxml"),
         SETTINGS("Settings", "⚙", "/fxml/settings.fxml");
 
@@ -102,6 +104,7 @@ public class App extends Application {
         Supplier<Object> controllerFactory = switch (nav) {
             case DASHBOARD -> () -> new DashboardController(context);
             case FOODS -> () -> new FoodDbController(context);
+            case TRENDS -> () -> new TrendsController(context);
             case PROFILE -> () -> new ProfileController(context);
             case SETTINGS -> () -> new SettingsController(context);
         };

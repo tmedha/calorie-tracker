@@ -12,7 +12,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /** Access to {@code log_entries}, joined with {@code foods} for display. */
 public class LogEntryDao {
@@ -21,6 +23,21 @@ public class LogEntryDao {
 
     public LogEntryDao(Database database) {
         this.database = database;
+    }
+
+    /** The distinct dates that have at least one log entry (used for streaks). */
+    public Set<LocalDate> distinctLoggedDates() {
+        try (PreparedStatement ps = conn().prepareStatement(
+                "SELECT DISTINCT log_date FROM log_entries");
+             ResultSet rs = ps.executeQuery()) {
+            Set<LocalDate> dates = new HashSet<>();
+            while (rs.next()) {
+                dates.add(LocalDate.parse(rs.getString("log_date")));
+            }
+            return dates;
+        } catch (SQLException e) {
+            throw new IllegalStateException("Failed to load logged dates", e);
+        }
     }
 
     /** All entries logged on a given day, each with its resolved food. */

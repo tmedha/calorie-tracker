@@ -39,4 +39,11 @@ CREATE TABLE IF NOT EXISTS log_entries (
 
 CREATE INDEX IF NOT EXISTS idx_log_entries_date ON log_entries(log_date);
 
+CREATE TABLE IF NOT EXISTS weight_entries (
+    id         INTEGER PRIMARY KEY AUTOINCREMENT,
+    entry_date TEXT    NOT NULL UNIQUE,
+    weight_kg  REAL    NOT NULL,
+    created_at TEXT    NOT NULL DEFAULT (datetime('now'))
+);
+
 INSERT OR IGNORE INTO profiles (id) VALUES (1);

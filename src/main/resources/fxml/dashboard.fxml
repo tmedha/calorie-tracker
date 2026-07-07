@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.Priority?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
+<?import com.calorietracker.ui.controls.CalorieRing?>
 
 <ScrollPane fitToWidth="true" styleClass="scroll-pane"
             xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
@@ -27,14 +28,19 @@
         </HBox>
 
         <!-- Daily summary -->
-        <VBox styleClass="card" spacing="18">
+        <VBox styleClass="hero-card" spacing="14">
+            <HBox alignment="CENTER_LEFT">
+                <Label text="Calories eaten" styleClass="summary-label"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <HBox fx:id="streakChip" styleClass="streak-chip" alignment="CENTER" spacing="6">
+                    <Label fx:id="streakLabel" styleClass="streak-count"/>
+                </HBox>
+            </HBox>
+
             <HBox spacing="36" alignment="CENTER_LEFT">
-                <VBox spacing="0" minWidth="180">
-                    <Label text="Calories eaten" styleClass="summary-label"/>
-                    <Label fx:id="caloriesConsumed" text="0" styleClass="summary-calories"/>
+                <VBox spacing="8" alignment="CENTER" minWidth="180">
+                    <CalorieRing fx:id="calorieRing"/>
                     <Label fx:id="caloriesSub" styleClass="summary-label"/>
-                    <ProgressBar fx:id="calorieBar" progress="0" prefWidth="180"
-                                 styleClass="calorie-bar"/>
                 </VBox>
 
                 <VBox spacing="12" HBox.hgrow="ALWAYS">
