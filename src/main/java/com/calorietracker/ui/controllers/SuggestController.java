@@ -118,11 +118,7 @@ public class SuggestController {
         HBox header = new HBox(10, title, spacer, score);
         header.setStyle("-fx-alignment: center-left;");
 
-        Label caption = new Label("Built with a bounded-knapsack DP over your "
-                + context.foods().findAll().size() + " saved foods.");
-        caption.getStyleClass().add("muted");
-
-        card.getChildren().addAll(header, caption);
+        card.getChildren().add(header);
         for (SuggestionItem item : suggestion.items()) {
             card.getChildren().add(itemRow(item));
         }

@@ -13,7 +13,7 @@
     <VBox styleClass="content" spacing="18">
         <VBox spacing="2">
             <Label text="Meal Suggester" styleClass="page-title"/>
-            <Label text="A bounded-knapsack algorithm builds the best meal from your saved foods to hit your remaining targets."
+            <Label text="Builds the best meal from your saved foods to hit your remaining targets."
                    styleClass="page-subtitle" wrapText="true"/>
         </VBox>
 
