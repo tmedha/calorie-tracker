@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane fitToWidth="true" styleClass="scroll-pane"
+            xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+    <VBox styleClass="content" spacing="8">
+        <Label text="Profile" styleClass="page-title"/>
+        <Label text="Your details drive the BMR calculation and daily targets." styleClass="page-subtitle"/>
+
+        <HBox spacing="20">
+            <!-- Details form -->
+            <VBox styleClass="card" spacing="14" minWidth="340" prefWidth="360">
+                <Label text="Your details" styleClass="section-title"/>
+
+                <VBox spacing="4">
+                    <Label text="Name" styleClass="field-label"/>
+                    <TextField fx:id="nameField" promptText="Optional"/>
+                </VBox>
+
+                <HBox spacing="12">
+                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                        <Label text="Sex" styleClass="field-label"/>
+                        <ComboBox fx:id="sexCombo" maxWidth="Infinity"/>
+                    </VBox>
+                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                        <Label text="Date of birth" styleClass="field-label"/>
+                        <DatePicker fx:id="birthPicker" maxWidth="Infinity"/>
+                    </VBox>
+                </HBox>
+
+                <!-- Metric inputs -->
+                <HBox fx:id="metricBox" spacing="12">
+                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                        <Label text="Weight (kg)" styleClass="field-label"/>
+                        <TextField fx:id="weightKgField" promptText="kg"/>
+                    </VBox>
+                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                        <Label text="Height (cm)" styleClass="field-label"/>
+                        <TextField fx:id="heightCmField" promptText="cm"/>
+                    </VBox>
+                </HBox>
+
+                <!-- Imperial inputs -->
+                <HBox fx:id="imperialBox" spacing="12">
+                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                        <Label text="Weight (lb)" styleClass="field-label"/>
+                        <TextField fx:id="weightLbField" promptText="lb"/>
+                    </VBox>
+                    <VBox spacing="4">
+                        <Label text="Height (ft)" styleClass="field-label"/>
+                        <TextField fx:id="heightFtField" promptText="ft" prefWidth="70"/>
+                    </VBox>
+                    <VBox spacing="4">
+                        <Label text="(in)" styleClass="field-label"/>
+                        <TextField fx:id="heightInField" promptText="in" prefWidth="70"/>
+                    </VBox>
+                </HBox>
+
+                <VBox spacing="4">
+                    <Label text="Activity level" styleClass="field-label"/>
+                    <ComboBox fx:id="activityCombo" maxWidth="Infinity"/>
+                </VBox>
+
+                <VBox spacing="4">
+                    <Label text="Goal" styleClass="field-label"/>
+                    <ComboBox fx:id="goalCombo" maxWidth="Infinity"/>
+                </VBox>
+            </VBox>
+
+            <!-- Results -->
+            <VBox styleClass="card" spacing="14" HBox.hgrow="ALWAYS" minWidth="320">
+                <Label text="Energy &amp; targets" styleClass="section-title"/>
+
+                <HBox spacing="24">
+                    <VBox spacing="2">
+                        <Label text="BMR" styleClass="summary-label"/>
+                        <Label fx:id="bmrValue" text="—" styleClass="stat-value"/>
+                        <Label text="kcal/day" styleClass="summary-label"/>
+                    </VBox>
+                    <VBox spacing="2">
+                        <Label text="Maintenance (TDEE)" styleClass="summary-label"/>
+                        <Label fx:id="tdeeValue" text="—" styleClass="stat-value"/>
+                        <Label text="kcal/day" styleClass="summary-label"/>
+                    </VBox>
+                    <VBox spacing="2">
+                        <Label text="Suggested target" styleClass="summary-label"/>
+                        <Label fx:id="suggestedValue" text="—" styleClass="stat-value"/>
+                        <Label text="kcal/day" styleClass="summary-label"/>
+                    </VBox>
+                </HBox>
+
+                <Label fx:id="incompleteHint" styleClass="empty-hint"
+                       text="Enter your date of birth, weight, and height to calculate." wrapText="true"/>
+
+                <Separator/>
+
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label text="Daily targets" styleClass="section-title"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button fx:id="useSuggestedButton" text="Use suggested" styleClass="ghost-button"
+                            onAction="#useSuggested"/>
+                </HBox>
+
+                <HBox spacing="12">
+                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                        <Label text="Calories" styleClass="field-label"/>
+                        <TextField fx:id="calorieField" promptText="kcal"/>
+                    </VBox>
+                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                        <Label text="Protein (g)" styleClass="field-label"/>
+                        <TextField fx:id="proteinField"/>
+                    </VBox>
+                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                        <Label text="Carbs (g)" styleClass="field-label"/>
+                        <TextField fx:id="carbsField"/>
+                    </VBox>
+                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                        <Label text="Fat (g)" styleClass="field-label"/>
+                        <TextField fx:id="fatField"/>
+                    </VBox>
+                </HBox>
+
+                <HBox spacing="12" alignment="CENTER_LEFT">
+                    <Button text="Save profile" styleClass="primary-button" onAction="#save"/>
+                    <Label fx:id="statusLabel" styleClass="muted"/>
+                </HBox>
+            </VBox>
+        </HBox>
+    </VBox>
+</ScrollPane>
