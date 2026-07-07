@@ -15,7 +15,7 @@
     -canvas: #eef3fc;
     -card: #ffffff;
     -text: #0f1729;
-    -muted: #333c4d;
+    -muted: #1a2030;
     -border: #d4def0;
 
     -protein: #2563eb;
@@ -180,6 +180,7 @@
 .field-label {
     -fx-text-fill: -muted;
     -fx-font-size: 12px;
+    -fx-font-weight: bold;
     -fx-padding: 0 0 4 2;
 }
 
@@ -304,7 +305,7 @@
 
 .entry-meta {
     -fx-text-fill: -muted;
-    -fx-font-size: 12px;
+    -fx-font-size: 13px;
 }
 
 .entry-cals {
