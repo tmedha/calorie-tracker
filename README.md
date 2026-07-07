@@ -1,6 +1,6 @@
 # Calorie Tracker
 
-A minimalist desktop app for tracking calories and macros, built with **JavaFX 25** and **SQLite**.
+A desktop app for tracking calories and macros, built with **JavaFX 25** and **SQLite**.
 
 ## Features
 
