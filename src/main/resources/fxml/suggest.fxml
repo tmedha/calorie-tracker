@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane fitToWidth="true" styleClass="scroll-pane"
+            xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+    <VBox styleClass="content" spacing="18">
+        <VBox spacing="2">
+            <Label text="Meal Suggester" styleClass="page-title"/>
+            <Label text="A bounded-knapsack algorithm builds the best meal from your saved foods to hit your remaining targets."
+                   styleClass="page-subtitle" wrapText="true"/>
+        </VBox>
+
+        <!-- Targets -->
+        <VBox styleClass="card" spacing="14">
+            <Label text="Your targets" styleClass="section-title"/>
+            <HBox spacing="12">
+                <VBox spacing="4">
+                    <Label text="Calories" styleClass="field-label"/>
+                    <TextField fx:id="caloriesField" prefWidth="110"/>
+                </VBox>
+                <VBox spacing="4">
+                    <Label text="Protein (g)" styleClass="field-label"/>
+                    <TextField fx:id="proteinField" prefWidth="100"/>
+                </VBox>
+                <VBox spacing="4">
+                    <Label text="Carbs (g)" styleClass="field-label"/>
+                    <TextField fx:id="carbsField" prefWidth="100"/>
+                </VBox>
+                <VBox spacing="4">
+                    <Label text="Fat (g)" styleClass="field-label"/>
+                    <TextField fx:id="fatField" prefWidth="100"/>
+                </VBox>
+                <Region HBox.hgrow="ALWAYS"/>
+                <VBox spacing="4">
+                    <Label text="Max servings / food" styleClass="field-label"/>
+                    <TextField fx:id="maxServingsField" prefWidth="130"/>
+                </VBox>
+            </HBox>
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <Button text="Build meal" styleClass="primary-button" onAction="#build"/>
+                <Label fx:id="statusLabel" styleClass="muted"/>
+            </HBox>
+        </VBox>
+
+        <!-- Result (populated by the controller) -->
+        <VBox fx:id="resultBox" spacing="14"/>
+    </VBox>
+</ScrollPane>

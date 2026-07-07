@@ -372,6 +372,15 @@
     -fx-padding: 8 0 8 4;
 }
 
+.match-score {
+    -fx-background-color: -accent-soft;
+    -fx-text-fill: -accent-deep;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-background-radius: 20;
+    -fx-padding: 5 14 5 14;
+}
+
 .scroll-pane, .scroll-pane .viewport {
     -fx-background-color: transparent;
 }
