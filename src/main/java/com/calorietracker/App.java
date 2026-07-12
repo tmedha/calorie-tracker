@@ -15,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -70,6 +71,9 @@ public class App extends Application {
         Scene scene = new Scene(shell, 1080, 720);
         scene.getStylesheets().add(resource("/css/app.css"));
         stage.setTitle("Calorie Tracker");
+        stage.getIcons().addAll(
+                new Image(resource("/images/app-icon-256.png")),
+                new Image(resource("/images/app-icon-64.png")));
         stage.setScene(scene);
         stage.setMinWidth(920);
         stage.setMinHeight(600);

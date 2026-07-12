@@ -74,6 +74,20 @@ mvn javafx:run
 mvn test
 ```
 
+## Build
+
+```bash
+mvn clean package
+```
+
+Generates the runnable build in `target/`.
+
+```bash
+mvn clean verify
+```
+
+Generates the distributable package (installer) in `target/dist/`.
+
 ## Project structure
 
 ```

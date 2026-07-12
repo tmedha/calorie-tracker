@@ -133,6 +133,8 @@
                                     <arg value="calorie-tracker.jar" />
                                     <arg value="--main-class" />
                                     <arg value="com.calorietracker.Launcher" />
+                                    <arg value="--icon" />
+                                    <arg value="${project.basedir}/packaging/macos/AppIcon.icns" />
                                 </exec>
                             </target>
                         </configuration>
