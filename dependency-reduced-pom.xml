@@ -94,6 +94,38 @@
       </plugin>
     </plugins>
   </build>
+  <profiles>
+    <profile>
+      <id>mac-aarch64</id>
+      <properties>
+        <javafx.platform>mac-aarch64</javafx.platform>
+      </properties>
+    </profile>
+    <profile>
+      <id>mac-x86_64</id>
+      <properties>
+        <javafx.platform>mac</javafx.platform>
+      </properties>
+    </profile>
+    <profile>
+      <id>linux-aarch64</id>
+      <properties>
+        <javafx.platform>linux-aarch64</javafx.platform>
+      </properties>
+    </profile>
+    <profile>
+      <id>linux-x86_64</id>
+      <properties>
+        <javafx.platform>linux</javafx.platform>
+      </properties>
+    </profile>
+    <profile>
+      <id>windows</id>
+      <properties>
+        <javafx.platform>win</javafx.platform>
+      </properties>
+    </profile>
+  </profiles>
   <dependencies>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -118,6 +150,7 @@
   </dependencies>
   <properties>
     <maven.compiler.release>25</maven.compiler.release>
+    <javafx.platform>linux</javafx.platform>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <javafx.version>25</javafx.version>
     <junit.version>5.11.3</junit.version>

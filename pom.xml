@@ -16,6 +16,8 @@
         <maven.compiler.release>25</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <javafx.version>25</javafx.version>
+        <!-- default; overridden per-OS/arch by the profiles below -->
+        <javafx.platform>linux</javafx.platform>
         <junit.version>5.11.3</junit.version>
         <sqlite.version>3.47.1.0</sqlite.version>
     </properties>
@@ -25,11 +27,13 @@
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
             <version>${javafx.version}</version>
+            <classifier>${javafx.platform}</classifier>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
             <version>${javafx.version}</version>
+            <classifier>${javafx.platform}</classifier>
         </dependency>
         <dependency>
             <groupId>org.xerial</groupId>
@@ -143,4 +147,45 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <!-- Selects the JavaFX native-artifact classifier from the building JVM's
+             reported os.name/os.arch, so the natives always match what will load them
+             (this tracks the JVM, e.g. under Rosetta, not necessarily the physical chip). -->
+        <profile>
+            <id>mac-aarch64</id>
+            <activation>
+                <os><family>mac</family><arch>aarch64</arch></os>
+            </activation>
+            <properties><javafx.platform>mac-aarch64</javafx.platform></properties>
+        </profile>
+        <profile>
+            <id>mac-x86_64</id>
+            <activation>
+                <os><family>mac</family><arch>x86_64</arch></os>
+            </activation>
+            <properties><javafx.platform>mac</javafx.platform></properties>
+        </profile>
+        <profile>
+            <id>linux-aarch64</id>
+            <activation>
+                <os><family>unix</family><arch>aarch64</arch></os>
+            </activation>
+            <properties><javafx.platform>linux-aarch64</javafx.platform></properties>
+        </profile>
+        <profile>
+            <id>linux-x86_64</id>
+            <activation>
+                <os><family>unix</family><arch>x86_64</arch></os>
+            </activation>
+            <properties><javafx.platform>linux</javafx.platform></properties>
+        </profile>
+        <profile>
+            <id>windows</id>
+            <activation>
+                <os><family>windows</family></os>
+            </activation>
+            <properties><javafx.platform>win</javafx.platform></properties>
+        </profile>
+    </profiles>
 </project>
