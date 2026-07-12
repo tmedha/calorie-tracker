@@ -66,6 +66,79 @@
                     <mainClass>com.calorietracker.App</mainClass>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.6.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>com.calorietracker.Launcher</mainClass>
+                                </transformer>
+                            </transformers>
+                            <filters>
+                                <filter>
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <!-- Clear out and create an isolated input environment -->
+                                <delete dir="${project.build.directory}/installer-input" />
+                                <mkdir dir="${project.build.directory}/installer-input" />
+                                <mkdir dir="${project.build.directory}/dist" />
+                                
+                                <!-- Copy ONLY the final fat jar into the directory -->
+                                <copy file="${project.build.directory}/calorie-tracker.jar" 
+                                      tofile="${project.build.directory}/installer-input/calorie-tracker.jar" />
+                                
+                                <!-- Direct shell invocation to the active JDK's real jpackage binary -->
+                                <exec executable="jpackage" failonerror="true">
+                                    <arg value="--type" />
+                                    <arg value="dmg" /> <!-- Change to exe if building on Windows -->
+                                    <arg value="--input" />
+                                    <arg value="${project.build.directory}/installer-input" />
+                                    <arg value="--dest" />
+                                    <arg value="${project.build.directory}/dist" />
+                                    <arg value="--name" />
+                                    <arg value="CalorieTracker" />
+                                    <arg value="--vendor" />
+                                    <arg value="CalorieTrackerApp" />
+                                    <arg value="--main-jar" />
+                                    <arg value="calorie-tracker.jar" />
+                                    <arg value="--main-class" />
+                                    <arg value="com.calorietracker.Launcher" />
+                                </exec>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 </project>
